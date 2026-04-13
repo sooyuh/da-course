@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../utils/supabase';
-import { Book, Award, TrendingUp, Users, ChevronRight } from 'lucide-react';
+import { Book, Award, TrendingUp, Users, ChevronRight, Play, Code, BarChart2, Database } from 'lucide-react';
 
 const Home = () => {
   const [courses, setCourses] = useState<any[]>([]);
@@ -64,6 +64,127 @@ const Home = () => {
               >
                 立即注册
               </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Python基础课程特色 Section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center space-x-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full mb-4">
+              <Code className="h-5 w-5" />
+              <span className="font-medium">热门推荐</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Python基础课程</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+              从零开始，系统学习Python编程，掌握数据分析的基础技能
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* 课程内容 */}
+            <div className="space-y-8">
+              <div className="bg-gradient-to-r from-blue-50 to-green-50 p-8 rounded-2xl">
+                <h3 className="text-2xl font-bold text-gray-800 mb-6">课程内容</h3>
+                <div className="space-y-4">
+                  {[
+                    { icon: <Code className="h-5 w-5" />, title: 'Python基础语法', desc: '变量、数据类型、运算符、控制结构' },
+                    { icon: <Database className="h-5 w-5" />, title: '数据结构', desc: '列表、元组、字典、集合' },
+                    { icon: <Book className="h-5 w-5" />, title: '函数与模块', desc: '函数定义、参数传递、模块化编程' },
+                    { icon: <BarChart2 className="h-5 w-5" />, title: '面向对象', desc: '类、对象、继承、多态' }
+                  ].map((item, index) => (
+                    <div key={index} className="flex items-start space-x-4">
+                      <div className="bg-white p-2 rounded-lg shadow-sm">
+                        <div className="text-blue-600">{item.icon}</div>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-gray-800">{item.title}</h4>
+                        <p className="text-gray-600 text-sm">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-4">
+                <Link 
+                  to="/courses" 
+                  className="bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2"
+                >
+                  <Play className="h-5 w-5" />
+                  <span>立即开始</span>
+                </Link>
+                <div className="flex items-center space-x-4 text-gray-600">
+                  <div className="flex items-center space-x-1">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span className="text-sm">12周课程</span>
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span className="text-sm">免费学习</span>
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span className="text-sm">初级难度</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 课程预览卡片 */}
+            <div className="relative">
+              <div className="bg-gradient-to-br from-blue-800 to-green-600 rounded-2xl p-8 text-white relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -mr-16 -mt-16"></div>
+                <div className="absolute bottom-0 left-0 w-48 h-48 bg-white opacity-10 rounded-full -ml-24 -mb-24"></div>
+                
+                <div className="relative z-10">
+                  <div className="flex items-center space-x-2 mb-6">
+                    <Code className="h-8 w-8" />
+                    <span className="text-xl font-bold">Python基础课程</span>
+                  </div>
+                  
+                  <h3 className="text-2xl font-bold mb-4">从零开始学Python</h3>
+                  <p className="text-blue-100 mb-8">
+                    适合完全零基础的学生，循序渐进地学习Python编程，为数据分析打下坚实基础
+                  </p>
+                  
+                  <div className="space-y-4 mb-8">
+                    <div className="flex items-center space-x-3">
+                      <div className="bg-white bg-opacity-20 p-2 rounded-lg">
+                        <Book className="h-4 w-4" />
+                      </div>
+                      <span>24节视频课程</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <div className="bg-white bg-opacity-20 p-2 rounded-lg">
+                        <Code className="h-4 w-4" />
+                      </div>
+                      <span>48个编程练习</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <div className="bg-white bg-opacity-20 p-2 rounded-lg">
+                        <BarChart2 className="h-4 w-4" />
+                      </div>
+                      <span>6个实战项目</span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between pt-6 border-t border-white border-opacity-20">
+                    <div>
+                      <p className="text-blue-100 text-sm">预计学习时间</p>
+                      <p className="text-2xl font-bold">48小时</p>
+                    </div>
+                    <Link 
+                      to="/courses" 
+                      className="bg-white text-blue-800 font-semibold py-3 px-6 rounded-lg hover:bg-gray-100 transition-colors"
+                    >
+                      查看课程
+                    </Link>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
