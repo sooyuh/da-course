@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../utils/supabase';
-import { Book, Award, TrendingUp, Users, ChevronRight, Play, Code, BarChart2, Database } from 'lucide-react';
+import { Book, Award, TrendingUp, Users, ChevronRight, Play, Code, BarChart2, Database, Brain, Sparkles, Zap, Star } from 'lucide-react';
 
 const Home = () => {
   const [courses, setCourses] = useState<any[]>([]);
@@ -186,6 +186,130 @@ const Home = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 数据分析AI训练平台 Section */}
+      <section className="py-20 bg-gradient-to-b from-gray-50 to-blue-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center space-x-2 bg-purple-100 text-purple-800 px-4 py-2 rounded-full mb-4">
+              <Brain className="h-5 w-5" />
+              <span className="font-medium">AI驱动</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">数据分析AI训练平台</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+              基于Cloudflare免费资源，实现"3步认知+10个梯度项目+AI错题倒逼"的Python数据分析实操训练平台
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* 核心特点 */}
+            <div className="space-y-6">
+              <h3 className="text-2xl font-bold text-gray-800 mb-4">核心特点</h3>
+              <div className="space-y-4">
+                {[
+                  { icon: <Zap className="h-6 w-6" />, title: '无后端架构', desc: '基于Cloudflare Pages + Workers，零成本部署' },
+                  { icon: <Brain className="h-6 w-6" />, title: 'AI陪练', desc: '豆包/OpenAI API代理，智能思路点拨和代码纠错' },
+                  { icon: <Code className="h-6 w-6" />, title: '浏览器端Python', desc: 'Pyodide运行环境，无需后端服务器' },
+                  { icon: <Star className="h-6 w-6" />, title: '10个梯度项目', desc: '从基础到进阶的实战项目，循序渐进' }
+                ].map((item, index) => (
+                  <div key={index} className="flex items-start space-x-4 bg-white p-6 rounded-xl shadow-sm">
+                    <div className="bg-purple-100 p-3 rounded-lg">
+                      <div className="text-purple-600">{item.icon}</div>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-800 text-lg">{item.title}</h4>
+                      <p className="text-gray-600">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* 项目展示 */}
+            <div className="space-y-6">
+              <h3 className="text-2xl font-bold text-gray-800 mb-4">10个梯度项目</h3>
+              <div className="bg-white p-6 rounded-xl shadow-sm h-full">
+                <div className="space-y-3">
+                  {[
+                    '数据清洗与预处理',
+                    '探索性数据分析',
+                    '数据可视化',
+                    '统计分析',
+                    '机器学习入门',
+                    '特征工程',
+                    '模型评估',
+                    '时间序列分析',
+                    '文本分析',
+                    '综合实战项目'
+                  ].map((project, index) => (
+                    <div key={index} className="flex items-center space-x-3">
+                      <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-semibold">
+                        {index + 1}
+                      </div>
+                      <span className="text-gray-800">{project}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* 技术架构 */}
+            <div className="space-y-6">
+              <h3 className="text-2xl font-bold text-gray-800 mb-4">技术架构</h3>
+              <div className="bg-white p-6 rounded-xl shadow-sm">
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                      <Code className="h-6 w-6 text-blue-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-800">前端应用</h4>
+                      <p className="text-gray-600 text-sm">React + TypeScript + Tailwind CSS</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                      <Zap className="h-6 w-6 text-green-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-800">边缘计算</h4>
+                      <p className="text-gray-600 text-sm">Cloudflare Workers + KV存储</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                      <Brain className="h-6 w-6 text-purple-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-800">AI服务</h4>
+                      <p className="text-gray-600 text-sm">Cloudflare AI Gateway + 豆包/OpenAI</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
+                      <Database className="h-6 w-6 text-yellow-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-800">数据存储</h4>
+                      <p className="text-gray-600 text-sm">LocalStorage + Workers KV</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-12 text-center">
+            <Link 
+              to="/courses" 
+              className="bg-purple-600 text-white font-semibold py-3 px-8 rounded-lg hover:bg-purple-700 transition-colors inline-flex items-center space-x-2"
+            >
+              <Sparkles className="h-5 w-5" />
+              <span>开始AI训练之旅</span>
+            </Link>
           </div>
         </div>
       </section>
