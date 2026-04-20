@@ -1,0 +1,70 @@
+/* Tailwind CSS */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+:root {
+  --primary-color: #165DFF;
+  --secondary-color: #4E5969;
+  --light-color: #F5F7FA;
+  --dark-color: #1D2129;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--dark-color);
+  background-color: #ffffff;
+}
+
+/* 自定义按钮样式 */
+.btn-primary {
+  @apply bg-primary text-white px-6 py-2 rounded-lg font-medium hover:bg-primary/90 transition-all duration-300 shadow-md hover:shadow-lg;
+}
+
+.btn-secondary {
+  @apply bg-white text-primary border border-primary px-6 py-2 rounded-lg font-medium hover:bg-primary/5 transition-all duration-300;
+}
+
+/* 自定义卡片样式 */
+.card {
+  @apply bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6;
+}
+
+/* 自定义标题样式 */
+.section-title {
+  @apply text-3xl md:text-4xl font-bold mb-6 text-center;
+}
+
+/* 自定义动画 */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--light-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--secondary-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}
