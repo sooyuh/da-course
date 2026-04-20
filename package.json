@@ -1,0 +1,11 @@
+{
+  "name": "python-data-analysis-training",
+  "version": "1.0.0",
+  "description": "Python数据分析训练网站",
+  "scripts": {
+    "build": "cd frontend && npm install && npm run build"
+  },
+  "keywords": ["python", "data-analysis", "training"],
+  "author": "sooyuh",
+  "license": "MIT"
+}

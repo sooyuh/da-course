@@ -1,32 +1,74 @@
 # Cloudflare Pages 部署指南
 
-## Cloudflare Pages 配置
+## 重要提示：从您的截图分析
 
-### 1. 项目设置
+从您的 Cloudflare Pages 截图中，我看到您的项目名称是 `da-course-p`。
 
-在 Cloudflare Pages 中创建新项目时，请使用以下配置：
+## Cloudflare Pages 配置（推荐方式）
+
+### 方法1：根目录构建（推荐）
+
+在 Cloudflare Pages 中使用以下配置：
+
+**构建设置：**
+- **构建命令：** `cd frontend && npm install && npm run build`
+- **输出目录：** `frontend/dist`
+- **根目录：** （留空，保持默认）
+
+### 方法2：子目录构建
+
+如果您想使用子目录构建：
 
 **构建设置：**
 - **构建命令：** `npm run build`
 - **输出目录：** `dist`
-- **根目录：** `frontend` (如果您的仓库根目录不是 `frontend` 目录，请相应调整)
+- **根目录：** `frontend`
 
-### 2. Node 版本
+### Node 版本设置（推荐）
 
-确保在 Cloudflare Pages 的环境变量中设置 Node 版本（可选但推荐）：
+在 Cloudflare Pages 的环境变量中设置：
 - **环境变量键：** `NODE_VERSION`
-- **值：** `18` 或 `20`
+- **值：** `18`
 
-### 3. 部署流程
+### 部署流程
 
 1. **连接 GitHub 仓库**
 2. **选择分支：** `master` 或 `main`
-3. **配置构建设置：**
-   - 框架预设：Vite
-   - 构建命令：`npm run build`
-   - 构建输出目录：`dist`
-   - 根目录：`frontend`
+3. **配置构建设置（使用方法1）：**
+   - 框架预设：无（或选择 Vite）
+   - 构建命令：`cd frontend && npm install && npm run build`
+   - 构建输出目录：`frontend/dist`
+   - 根目录：（留空）
 4. **保存并部署**
+
+### 为什么之前失败了？
+
+可能的原因：
+1. **根目录配置错误** - 没有正确设置到 `frontend` 目录
+2. **构建命令找不到 `package.json`** - 构建命令在错误的目录执行
+3. **输出目录配置错误** - 指向了错误的构建输出位置
+
+## 使用新添加的配置文件
+
+我已为您添加了以下文件：
+
+1. **根目录 `package.json`** - 包含构建脚本
+2. **`wrangler.toml`** - Cloudflare 配置文件
+3. **`frontend/_redirects`** - 路由重定向配置
+
+## 重新部署步骤
+
+1. **确保所有新文件已推送到 GitHub**（已完成）
+2. **在 Cloudflare Pages 中更新配置**：
+   - 点击您的项目 `da-course-p`
+   - 进入设置 → 构建和部署
+   - 更新构建配置为方法1
+3. **重新部署**：
+   - 在部署页面点击"重新部署"
+   - 或者等待自动部署触发
+4. **查看部署日志**：
+   - 点击"查看详细信息"
+   - 检查具体的错误信息
 
 ## 常见部署问题及解决方案
 

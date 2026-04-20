@@ -1,0 +1,18 @@
+#:schema node_modules/wrangler/config-schema.json
+name = "da-course-p"
+compatibility_date = "2024-04-20"
+
+[vars]
+
+[build]
+command = "cd frontend && npm install && npm run build"
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
+
+[[redirects]]
+from = "/api/*"
+to = "http://localhost:5000/api/:splat"
+status = 200
