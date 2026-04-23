@@ -1,14 +1,10 @@
-#:schema node_modules/wrangler/config-schema.json
+# Cloudflare Pages configuration
 name = "da-course-p"
 compatibility_date = "2024-04-20"
 
-[vars]
-
 [build]
 command = "cd frontend && npm install && npm run build"
-
-[pages]
-build_output_dir = "frontend/dist"
+bucket = "frontend/dist"
 
 [[redirects]]
 from = "/*"
