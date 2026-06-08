@@ -41,31 +41,66 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-800 to-green-600 text-white py-20">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              数据驱动未来，学习成就梦想
+      <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 gradient-animated">
+        {/* Background Elements */}
+        <div className="absolute inset-0 grid-bg opacity-30"></div>
+        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '1.5s' }}></div>
+        
+        <div className="container mx-auto px-4 py-20 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm text-white px-4 py-2 rounded-full mb-8 animate-fade-in">
+              <Sparkles className="h-5 w-5 text-yellow-400" />
+              <span className="font-medium">AI驱动的学习平台</span>
+            </div>
+            
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+              <span className="text-white">掌握</span>
+              <span className="text-gradient-animated"> 数据分析 </span>
+              <span className="text-white">技能</span>
             </h1>
-            <p className="text-xl mb-8">
+            
+            <p className="text-xl md:text-2xl text-gray-300 mb-10 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: '0.4s' }}>
               基于Python的数据分析在线教育平台，为商务数据分析与应用专业的学生提供完整的学习体系和互动式学习体验。
             </p>
-            <div className="flex flex-wrap gap-4">
+            
+            <div className="flex flex-wrap justify-center gap-4 animate-fade-in" style={{ animationDelay: '0.6s' }}>
               <Link 
                 to="/courses" 
-                className="bg-white text-blue-800 font-semibold py-3 px-6 rounded-lg hover:bg-gray-100 transition-colors flex items-center space-x-2"
+                className="btn-gradient flex items-center space-x-2"
               >
+                <Book className="h-5 w-5" />
                 <span>浏览课程</span>
-                <ChevronRight className="h-5 w-5" />
               </Link>
               <Link 
-                to="/auth/register" 
-                className="bg-transparent border-2 border-white text-white font-semibold py-3 px-6 rounded-lg hover:bg-white hover:text-blue-800 transition-colors"
+                to="/python-playground" 
+                className="btn-secondary flex items-center space-x-2"
               >
-                立即注册
+                <Code className="h-5 w-5" />
+                <span>在线练习</span>
               </Link>
             </div>
+            
+            {/* Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 animate-fade-in" style={{ animationDelay: '0.8s' }}>
+              {[
+                { number: '12+', label: '精品课程' },
+                { number: '140+', label: '视频课时' },
+                { number: '4.8', label: '平均评分' },
+                { number: '20K+', label: '学习人数' }
+              ].map((stat, index) => (
+                <div key={index} className="glass-effect rounded-xl p-4">
+                  <p className="text-3xl font-bold text-white">{stat.number}</p>
+                  <p className="text-gray-400 text-sm">{stat.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
+        </div>
+        
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-float">
+          <ChevronRight className="h-8 w-8 text-white/60 rotate-90" />
         </div>
       </section>
 
@@ -340,14 +375,16 @@ const Home = () => {
       </section>
 
       {/* 特色课程展示 Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gradient-to-b from-white to-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center space-x-2 bg-green-100 text-green-800 px-4 py-2 rounded-full mb-4">
+            <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white px-4 py-2 rounded-full mb-4 shadow-lg shadow-green-500/30">
               <Layers className="h-5 w-5" />
               <span className="font-medium">特色课程</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">核心实战课程</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+              <span className="text-gradient">核心实战课程</span>
+            </h2>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg">
               掌握数据分析核心技能，从数据清洗到高级分析，全方位提升实战能力
             </p>
@@ -355,46 +392,34 @@ const Home = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* 数据清洗实战课程 */}
-            <div className="bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl p-8 text-white relative overflow-hidden group hover:shadow-xl transition-shadow">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -mr-16 -mt-16"></div>
-              <div className="absolute bottom-0 left-0 w-48 h-48 bg-white opacity-10 rounded-full -ml-24 -mb-24"></div>
-              
-              <div className="relative z-10">
-                <div className="bg-white bg-opacity-20 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
-                  <Filter className="h-8 w-8" />
+            <div className="relative group">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl blur-xl opacity-80 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 transform group-hover:-translate-y-2">
+                <div className="bg-gradient-to-br from-blue-500 to-blue-700 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transform group-hover:scale-110 transition-transform duration-300">
+                  <Filter className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold mb-4">数据清洗实战</h3>
-                <p className="text-blue-100 mb-6">
+                <h3 className="text-2xl font-bold text-gray-800 mb-4">数据清洗实战</h3>
+                <p className="text-gray-600 mb-6">
                   学习如何处理缺失值、异常值、重复数据，掌握数据清洗的核心技巧和最佳实践
                 </p>
                 
                 <div className="space-y-3 mb-6">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
-                    <span>缺失值处理与填充策略</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
-                    <span>异常值检测与处理</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
-                    <span>数据格式标准化</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
-                    <span>数据质量评估与报告</span>
-                  </div>
+                  {['缺失值处理与填充策略', '异常值检测与处理', '数据格式标准化', '数据质量评估与报告'].map((item, index) => (
+                    <div key={index} className="flex items-center space-x-2">
+                      <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse-slow" style={{ animationDelay: `${index * 0.2}s` }}></div>
+                      <span className="text-gray-600">{item}</span>
+                    </div>
+                  ))}
                 </div>
 
-                <div className="flex items-center justify-between pt-4 border-t border-white border-opacity-20">
+                <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                   <div>
-                    <p className="text-blue-100 text-sm">课程时长</p>
-                    <p className="text-xl font-bold">8小时</p>
+                    <p className="text-gray-500 text-sm">课程时长</p>
+                    <p className="text-xl font-bold text-blue-600">8小时</p>
                   </div>
                   <Link 
                     to="/courses" 
-                    className="bg-white text-blue-600 font-semibold py-2 px-6 rounded-lg hover:bg-gray-100 transition-colors"
+                    className="bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold py-2 px-6 rounded-xl hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 transform hover:scale-105"
                   >
                     查看课程
                   </Link>
@@ -403,46 +428,34 @@ const Home = () => {
             </div>
 
             {/* 分组聚合分析课程 */}
-            <div className="bg-gradient-to-br from-green-500 to-green-700 rounded-2xl p-8 text-white relative overflow-hidden group hover:shadow-xl transition-shadow">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -mr-16 -mt-16"></div>
-              <div className="absolute bottom-0 left-0 w-48 h-48 bg-white opacity-10 rounded-full -ml-24 -mb-24"></div>
-              
-              <div className="relative z-10">
-                <div className="bg-white bg-opacity-20 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
-                  <Layers className="h-8 w-8" />
+            <div className="relative group">
+              <div className="absolute inset-0 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl blur-xl opacity-80 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 transform group-hover:-translate-y-2">
+                <div className="bg-gradient-to-br from-green-500 to-emerald-600 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transform group-hover:scale-110 transition-transform duration-300">
+                  <Layers className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold mb-4">分组聚合分析</h3>
-                <p className="text-green-100 mb-6">
+                <h3 className="text-2xl font-bold text-gray-800 mb-4">分组聚合分析</h3>
+                <p className="text-gray-600 mb-6">
                   掌握Pandas分组聚合操作，学习数据透视表、多维度分析等高级技巧
                 </p>
                 
                 <div className="space-y-3 mb-6">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
-                    <span>groupby分组操作</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
-                    <span>聚合函数应用</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
-                    <span>数据透视表制作</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
-                    <span>多维度交叉分析</span>
-                  </div>
+                  {['groupby分组操作', '聚合函数应用', '数据透视表制作', '多维度交叉分析'].map((item, index) => (
+                    <div key={index} className="flex items-center space-x-2">
+                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse-slow" style={{ animationDelay: `${index * 0.2}s` }}></div>
+                      <span className="text-gray-600">{item}</span>
+                    </div>
+                  ))}
                 </div>
 
-                <div className="flex items-center justify-between pt-4 border-t border-white border-opacity-20">
+                <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                   <div>
-                    <p className="text-green-100 text-sm">课程时长</p>
-                    <p className="text-xl font-bold">10小时</p>
+                    <p className="text-gray-500 text-sm">课程时长</p>
+                    <p className="text-xl font-bold text-green-600">10小时</p>
                   </div>
                   <Link 
                     to="/courses" 
-                    className="bg-white text-green-600 font-semibold py-2 px-6 rounded-lg hover:bg-gray-100 transition-colors"
+                    className="bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold py-2 px-6 rounded-xl hover:shadow-lg hover:shadow-green-500/30 transition-all duration-300 transform hover:scale-105"
                   >
                     查看课程
                   </Link>
@@ -451,46 +464,34 @@ const Home = () => {
             </div>
 
             {/* 购物篮分析课程 */}
-            <div className="bg-gradient-to-br from-purple-500 to-purple-700 rounded-2xl p-8 text-white relative overflow-hidden group hover:shadow-xl transition-shadow">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -mr-16 -mt-16"></div>
-              <div className="absolute bottom-0 left-0 w-48 h-48 bg-white opacity-10 rounded-full -ml-24 -mb-24"></div>
-              
-              <div className="relative z-10">
-                <div className="bg-white bg-opacity-20 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
-                  <ShoppingCart className="h-8 w-8" />
+            <div className="relative group">
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl blur-xl opacity-80 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 transform group-hover:-translate-y-2">
+                <div className="bg-gradient-to-br from-purple-500 to-pink-600 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transform group-hover:scale-110 transition-transform duration-300">
+                  <ShoppingCart className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold mb-4">购物篮分析</h3>
-                <p className="text-purple-100 mb-6">
+                <h3 className="text-2xl font-bold text-gray-800 mb-4">购物篮分析</h3>
+                <p className="text-gray-600 mb-6">
                   基于Apriori算法实现关联规则挖掘，分析商品之间的关联关系，助力营销策略优化
                 </p>
                 
                 <div className="space-y-3 mb-6">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
-                    <span>关联规则基础理论</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
-                    <span>Apriori算法实现</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
-                    <span>支持度与置信度分析</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
-                    <span>实战案例与营销建议</span>
-                  </div>
+                  {['关联规则基础理论', 'Apriori算法实现', '支持度与置信度分析', '实战案例与营销建议'].map((item, index) => (
+                    <div key={index} className="flex items-center space-x-2">
+                      <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse-slow" style={{ animationDelay: `${index * 0.2}s` }}></div>
+                      <span className="text-gray-600">{item}</span>
+                    </div>
+                  ))}
                 </div>
 
-                <div className="flex items-center justify-between pt-4 border-t border-white border-opacity-20">
+                <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                   <div>
-                    <p className="text-purple-100 text-sm">课程时长</p>
-                    <p className="text-xl font-bold">12小时</p>
+                    <p className="text-gray-500 text-sm">课程时长</p>
+                    <p className="text-xl font-bold text-purple-600">12小时</p>
                   </div>
                   <Link 
                     to="/courses" 
-                    className="bg-white text-purple-600 font-semibold py-2 px-6 rounded-lg hover:bg-gray-100 transition-colors"
+                    className="bg-gradient-to-r from-purple-500 to-pink-600 text-white font-semibold py-2 px-6 rounded-xl hover:shadow-lg hover:shadow-purple-500/30 transition-all duration-300 transform hover:scale-105"
                   >
                     查看课程
                   </Link>
