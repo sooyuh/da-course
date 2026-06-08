@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../utils/supabase';
-import { Book, Award, TrendingUp, Users, ChevronRight, Play, Code, BarChart2, Database, Brain, Sparkles, Zap, Star } from 'lucide-react';
+import { Book, Award, TrendingUp, Users, ChevronRight, Play, Code, BarChart2, Database, Brain, Sparkles, Zap, Star, ShoppingCart, Filter, Layers } from 'lucide-react';
 
 const Home = () => {
   const [courses, setCourses] = useState<any[]>([]);
@@ -234,15 +234,15 @@ const Home = () => {
               <div className="bg-white p-6 rounded-xl shadow-sm h-full">
                 <div className="space-y-3">
                   {[
-                    '数据清洗与预处理',
+                    '数据清洗实战',
+                    '分组聚合分析',
                     '探索性数据分析',
                     '数据可视化',
                     '统计分析',
-                    '机器学习入门',
+                    '购物篮分析',
                     '特征工程',
                     '模型评估',
                     '时间序列分析',
-                    '文本分析',
                     '综合实战项目'
                   ].map((project, index) => (
                     <div key={index} className="flex items-center space-x-3">
@@ -310,6 +310,168 @@ const Home = () => {
               <Sparkles className="h-5 w-5" />
               <span>开始AI训练之旅</span>
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 特色课程展示 Section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center space-x-2 bg-green-100 text-green-800 px-4 py-2 rounded-full mb-4">
+              <Layers className="h-5 w-5" />
+              <span className="font-medium">特色课程</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">核心实战课程</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+              掌握数据分析核心技能，从数据清洗到高级分析，全方位提升实战能力
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* 数据清洗实战课程 */}
+            <div className="bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl p-8 text-white relative overflow-hidden group hover:shadow-xl transition-shadow">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -mr-16 -mt-16"></div>
+              <div className="absolute bottom-0 left-0 w-48 h-48 bg-white opacity-10 rounded-full -ml-24 -mb-24"></div>
+              
+              <div className="relative z-10">
+                <div className="bg-white bg-opacity-20 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
+                  <Filter className="h-8 w-8" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4">数据清洗实战</h3>
+                <p className="text-blue-100 mb-6">
+                  学习如何处理缺失值、异常值、重复数据，掌握数据清洗的核心技巧和最佳实践
+                </p>
+                
+                <div className="space-y-3 mb-6">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-white rounded-full"></div>
+                    <span>缺失值处理与填充策略</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-white rounded-full"></div>
+                    <span>异常值检测与处理</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-white rounded-full"></div>
+                    <span>数据格式标准化</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-white rounded-full"></div>
+                    <span>数据质量评估与报告</span>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between pt-4 border-t border-white border-opacity-20">
+                  <div>
+                    <p className="text-blue-100 text-sm">课程时长</p>
+                    <p className="text-xl font-bold">8小时</p>
+                  </div>
+                  <Link 
+                    to="/courses" 
+                    className="bg-white text-blue-600 font-semibold py-2 px-6 rounded-lg hover:bg-gray-100 transition-colors"
+                  >
+                    查看课程
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* 分组聚合分析课程 */}
+            <div className="bg-gradient-to-br from-green-500 to-green-700 rounded-2xl p-8 text-white relative overflow-hidden group hover:shadow-xl transition-shadow">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -mr-16 -mt-16"></div>
+              <div className="absolute bottom-0 left-0 w-48 h-48 bg-white opacity-10 rounded-full -ml-24 -mb-24"></div>
+              
+              <div className="relative z-10">
+                <div className="bg-white bg-opacity-20 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
+                  <Layers className="h-8 w-8" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4">分组聚合分析</h3>
+                <p className="text-green-100 mb-6">
+                  掌握Pandas分组聚合操作，学习数据透视表、多维度分析等高级技巧
+                </p>
+                
+                <div className="space-y-3 mb-6">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-white rounded-full"></div>
+                    <span>groupby分组操作</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-white rounded-full"></div>
+                    <span>聚合函数应用</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-white rounded-full"></div>
+                    <span>数据透视表制作</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-white rounded-full"></div>
+                    <span>多维度交叉分析</span>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between pt-4 border-t border-white border-opacity-20">
+                  <div>
+                    <p className="text-green-100 text-sm">课程时长</p>
+                    <p className="text-xl font-bold">10小时</p>
+                  </div>
+                  <Link 
+                    to="/courses" 
+                    className="bg-white text-green-600 font-semibold py-2 px-6 rounded-lg hover:bg-gray-100 transition-colors"
+                  >
+                    查看课程
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* 购物篮分析课程 */}
+            <div className="bg-gradient-to-br from-purple-500 to-purple-700 rounded-2xl p-8 text-white relative overflow-hidden group hover:shadow-xl transition-shadow">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -mr-16 -mt-16"></div>
+              <div className="absolute bottom-0 left-0 w-48 h-48 bg-white opacity-10 rounded-full -ml-24 -mb-24"></div>
+              
+              <div className="relative z-10">
+                <div className="bg-white bg-opacity-20 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
+                  <ShoppingCart className="h-8 w-8" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4">购物篮分析</h3>
+                <p className="text-purple-100 mb-6">
+                  基于Apriori算法实现关联规则挖掘，分析商品之间的关联关系，助力营销策略优化
+                </p>
+                
+                <div className="space-y-3 mb-6">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-white rounded-full"></div>
+                    <span>关联规则基础理论</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-white rounded-full"></div>
+                    <span>Apriori算法实现</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-white rounded-full"></div>
+                    <span>支持度与置信度分析</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-white rounded-full"></div>
+                    <span>实战案例与营销建议</span>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between pt-4 border-t border-white border-opacity-20">
+                  <div>
+                    <p className="text-purple-100 text-sm">课程时长</p>
+                    <p className="text-xl font-bold">12小时</p>
+                  </div>
+                  <Link 
+                    to="/courses" 
+                    className="bg-white text-purple-600 font-semibold py-2 px-6 rounded-lg hover:bg-gray-100 transition-colors"
+                  >
+                    查看课程
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
