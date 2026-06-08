@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '../../utils/supabase';
-import { LogIn, User, Lock } from 'lucide-react';
+import { LogIn, User, Lock, Book, Sparkles } from 'lucide-react';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -34,120 +34,124 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div className="text-center">
-          <div className="flex items-center justify-center space-x-2 mb-4">
-            <User className="h-8 w-8 text-blue-600" />
-            <h2 className="text-3xl font-extrabold text-gray-900">登录</h2>
-          </div>
-          <p className="mt-2 text-sm text-gray-600">
-            登录你的账号，开始学习数据分析课程
-          </p>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 grid-bg opacity-20"></div>
+      <div className="absolute top-1/4 -left-32 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse-slow"></div>
+      <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '1.5s' }}></div>
+      
+      <div className="relative z-10 w-full max-w-md px-4">
+        {/* Logo */}
+        <div className="text-center mb-8 animate-fade-in">
+          <Link to="/" className="inline-flex items-center space-x-2 mb-6">
+            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center transform hover:scale-110 transition-transform duration-300">
+              <Book className="h-7 w-7 text-white" />
+            </div>
+            <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              DataLearn
+            </span>
+          </Link>
+          <h2 className="text-3xl font-bold text-white mb-2">欢迎回来</h2>
+          <p className="text-gray-400">登录你的账号，继续学习之旅</p>
         </div>
 
-        {error && (
-          <div className="bg-red-50 border border-red-200 rounded-md p-4">
-            <p className="text-red-600 text-sm">{error}</p>
-          </div>
-        )}
+        {/* Form Card */}
+        <div className="bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl p-8 border border-white/20 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+          {error && (
+            <div className="bg-red-500/20 border border-red-500/50 rounded-lg p-3 mb-6 animate-fade-in">
+              <p className="text-red-300 text-sm">{error}</p>
+            </div>
+          )}
 
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="rounded-md -space-y-px">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label htmlFor="email" className="sr-only">邮箱</label>
+              <label className="block text-sm font-medium text-gray-300 mb-2">邮箱地址</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <User className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
-                  id="email"
-                  name="email"
                   type="email"
-                  autoComplete="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                  placeholder="邮箱"
+                  className="block w-full pl-10 pr-3 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  placeholder="your@email.com"
                 />
               </div>
             </div>
-            <div className="mt-4">
-              <label htmlFor="password" className="sr-only">密码</label>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">密码</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <Lock className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
-                  id="password"
-                  name="password"
                   type="password"
-                  autoComplete="current-password"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                  placeholder="密码"
+                  className="block w-full pl-10 pr-3 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  placeholder="••••••••"
                 />
               </div>
             </div>
-          </div>
 
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                id="remember-me"
-                name="remember-me"
-                type="checkbox"
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-              />
-              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                记住我
+            <div className="flex items-center justify-between">
+              <label className="flex items-center">
+                <input type="checkbox" className="w-4 h-4 rounded border-gray-600 text-blue-500 focus:ring-blue-500" />
+                <span className="ml-2 text-sm text-gray-300">记住我</span>
               </label>
-            </div>
-
-            <div className="text-sm">
-              <a
-                href="#"
-                className="font-medium text-blue-600 hover:text-blue-500 transition-colors"
-              >
+              <a href="#" className="text-sm text-blue-400 hover:text-blue-300 transition-colors">
                 忘记密码?
               </a>
             </div>
-          </div>
 
-          <div>
             <button
               type="submit"
               disabled={loading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
             >
               {loading ? (
-                <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white mx-auto"></div>
+                <div className="flex items-center justify-center space-x-2">
+                  <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white"></div>
+                  <span>登录中...</span>
+                </div>
               ) : (
-                <>
-                  <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                    <LogIn className="h-5 w-5 text-white" />
-                  </span>
-                  登录
-                </>
+                <div className="flex items-center justify-center space-x-2">
+                  <LogIn className="h-5 w-5" />
+                  <span>登录</span>
+                </div>
               )}
             </button>
-          </div>
+          </form>
 
-          <div className="text-center">
-            <p className="text-sm text-gray-600">
-              还没有账号? {' '}
-              <Link
-                to="/auth/register"
-                className="font-medium text-blue-600 hover:text-blue-500 transition-colors"
-              >
+          <div className="mt-6 text-center">
+            <p className="text-gray-400 text-sm">
+              还没有账号?{' '}
+              <Link to="/auth/register" className="text-blue-400 hover:text-blue-300 font-medium transition-colors">
                 立即注册
               </Link>
             </p>
           </div>
-        </form>
+        </div>
+
+        {/* Features */}
+        <div className="mt-8 grid grid-cols-3 gap-4 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+          {[
+            { icon: Book, label: '12+ 课程' },
+            { icon: Sparkles, label: 'AI 辅助' },
+            { icon: User, label: '20K+ 学员' }
+          ].map((item, index) => (
+            <div key={index} className="text-center">
+              <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center mx-auto mb-2">
+                <item.icon className="h-5 w-5 text-blue-400" />
+              </div>
+              <p className="text-xs text-gray-400">{item.label}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
