@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '../utils/supabase';
-import { User, LogIn, LogOut, User as UserIcon, Book, Award, UserCircle } from 'lucide-react';
+import { User, LogIn, LogOut, User as UserIcon, Book, Award, UserCircle, Code2 } from 'lucide-react';
 
 const Navbar = () => {
   const [user, setUser] = useState<any>(null);
@@ -40,6 +40,10 @@ const Navbar = () => {
         <div className="hidden md:flex items-center space-x-6">
           <Link to="/" className="hover:text-green-300 transition-colors">首页</Link>
           <Link to="/courses" className="hover:text-green-300 transition-colors">课程中心</Link>
+          <Link to="/python-playground" className="flex items-center space-x-1 hover:text-green-300 transition-colors">
+            <Code2 className="h-4 w-4" />
+            <span>Python练习场</span>
+          </Link>
           <Link to="/achievements" className="hover:text-green-300 transition-colors">成就中心</Link>
         </div>
         

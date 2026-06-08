@@ -6,6 +6,7 @@ import CourseDetail from './pages/CourseDetail';
 import LearningModule from './pages/LearningModule';
 import Achievements from './pages/Achievements';
 import Profile from './pages/Profile';
+import PythonPlayground from './pages/PythonPlayground';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 
@@ -20,6 +21,7 @@ function App() {
           <Route path="learning/:courseId/:moduleId" element={<LearningModule />} />
           <Route path="achievements" element={<Achievements />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="python-playground" element={<PythonPlayground />} />
         </Route>
         <Route path="/auth/login" element={<Login />} />
         <Route path="/auth/register" element={<Register />} />

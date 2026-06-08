@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../utils/supabase';
-import { Book, Award, TrendingUp, Users, ChevronRight, Play, Code, BarChart2, Database, Brain, Sparkles, Zap, Star, ShoppingCart, Filter, Layers } from 'lucide-react';
+import { Book, Award, TrendingUp, Users, ChevronRight, Play, Code, BarChart2, Database, Brain, Sparkles, Zap, Star, ShoppingCart, Filter, Layers, Code2 } from 'lucide-react';
 
 const Home = () => {
   const [courses, setCourses] = useState<any[]>([]);
@@ -186,6 +186,31 @@ const Home = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Python练习场入口 */}
+      <section className="py-16 bg-gradient-to-r from-blue-500 to-purple-600">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <div className="inline-flex items-center space-x-2 bg-white/20 text-white px-4 py-2 rounded-full mb-4">
+              <Code2 className="h-5 w-5" />
+              <span className="font-medium">立即体验</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Python 数据可视化练习场
+            </h2>
+            <p className="text-blue-100 max-w-2xl mx-auto mb-8 text-lg">
+              无需安装任何软件，在浏览器中直接运行 Pandas 和 NumPy，学习数据分析的乐趣！
+            </p>
+            <Link 
+              to="/python-playground" 
+              className="inline-flex items-center space-x-2 bg-white text-blue-600 font-semibold py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors"
+            >
+              <Play className="h-5 w-5" />
+              <span>开始练习</span>
+            </Link>
           </div>
         </div>
       </section>
