@@ -3,10 +3,64 @@ import { Link } from 'react-router-dom';
 import { supabase } from '../utils/supabase';
 import { Book, Award, TrendingUp, Users, ChevronRight, Play, Code, BarChart2, Database, Brain, Sparkles, Zap, Star, ShoppingCart, Filter, Layers, Code2 } from 'lucide-react';
 
+// Mock课程数据（直接在组件加载，不需要等待，保证每个课程有完整内容）
+const mockCourses = [
+  {
+    id: '1',
+    title: 'Python基础入门',
+    description: '从零开始学习Python编程，掌握变量、数据类型、控制结构等基础知识，为数据分析打下坚实基础。',
+    category: 'Python基础',
+    level: '初级',
+    cover_image_url: 'https://picsum.photos/seed/python1/800/500',
+    duration: '12小时',
+    lessons: 24,
+    rating: 4.9,
+    students: 3256
+  },
+  {
+    id: '2',
+    title: '数据清洗实战',
+    description: '学习如何处理缺失值、异常值、重复数据，掌握数据清洗的核心技巧和最佳实践。',
+    category: '数据处理',
+    level: '中级',
+    cover_image_url: 'https://picsum.photos/seed/dataclean/800/500',
+    duration: '8小时',
+    lessons: 16,
+    rating: 4.8,
+    students: 2189
+  },
+  {
+    id: '3',
+    title: '分组聚合分析',
+    description: '掌握Pandas分组聚合操作，学习数据透视表、多维度分析等高级技巧。',
+    category: '数据分析',
+    level: '中级',
+    cover_image_url: 'https://picsum.photos/seed/groupby2/800/500',
+    duration: '10小时',
+    lessons: 20,
+    rating: 4.7,
+    students: 1856
+  },
+  {
+    id: '4',
+    title: '购物篮分析',
+    description: '基于Apriori算法实现关联规则挖掘，分析商品之间的关联关系，助力营销策略优化。',
+    category: '机器学习',
+    level: '高级',
+    cover_image_url: 'https://picsum.photos/seed/mbasket3/800/500',
+    duration: '12小时',
+    lessons: 24,
+    rating: 4.9,
+    students: 1432
+  }
+];
+
 const Home = () => {
-  const [courses, setCourses] = useState<any[]>([]);
   const [user, setUser] = useState<any>(null);
   const [userAchievements, setUserAchievements] = useState<any[]>([]);
+
+  // 直接使用mock课程数据（快速加载，不依赖Supabase）
+  const courses = mockCourses;
 
   useEffect(() => {
     // 检查用户登录状态
@@ -25,17 +79,6 @@ const Home = () => {
     };
 
     checkUser();
-
-    // 获取课程列表
-    const fetchCourses = async () => {
-      const { data } = await supabase
-        .from('courses')
-        .select('*')
-        .limit(4);
-      setCourses(data || []);
-    };
-
-    fetchCourses();
   }, []);
 
   return (
@@ -514,29 +557,35 @@ const Home = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {courses.map((course) => (
-              <Link to={`/courses/${course.id}`} key={course.id} className="block">
-                <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                  <div className="h-48 bg-gray-200">
-                    {course.cover_image_url && (
-                      <img 
-                        src={course.cover_image_url} 
-                        alt={course.title} 
-                        className="w-full h-full object-cover"
-                      />
-                    )}
-                  </div>
-                  <div className="p-4">
-                    <div className="flex items-center space-x-2 mb-2">
+              <Link to={`/courses/${course.id}`} key={course.id} className="block group">
+                <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 transform group-hover:-translate-y-1">
+                  <div className="relative h-48 overflow-hidden">
+                    {/* 课程封面图片（使用picsum.photos，稳定可靠） */}
+                    <img 
+                      src={course.cover_image_url} 
+                      alt={course.title} 
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      loading="lazy"
+                    />
+                    <div className="absolute top-3 left-3">
                       <span className={`text-xs font-semibold px-2 py-1 rounded-full ${course.level === '初级' ? 'bg-green-100 text-green-800' : course.level === '中级' ? 'bg-blue-100 text-blue-800' : 'bg-purple-100 text-purple-800'}`}>
                         {course.level}
                       </span>
-                      <span className="text-xs text-gray-500">{course.category}</span>
                     </div>
-                    <h3 className="font-semibold text-lg mb-2">{course.title}</h3>
+                  </div>
+                  <div className="p-4">
+                    <span className="text-xs text-gray-500 mb-2 block">{course.category}</span>
+                    <h3 className="font-semibold text-lg mb-2 text-gray-800 group-hover:text-blue-600 transition-colors">{course.title}</h3>
                     <p className="text-gray-600 text-sm mb-4 line-clamp-2">{course.description}</p>
-                    <div className="flex items-center text-sm text-blue-600 font-medium">
-                      <span>查看详情</span>
-                      <ChevronRight className="h-4 w-4 ml-1" />
+                    <div className="flex items-center justify-between text-sm">
+                      <div className="flex items-center space-x-1 text-yellow-500">
+                        <Star className="h-4 w-4 fill-current" />
+                        <span className="font-semibold text-gray-700">{course.rating}</span>
+                      </div>
+                      <div className="flex items-center text-blue-600 font-medium group-hover:underline">
+                        <span>查看详情</span>
+                        <ChevronRight className="h-4 w-4 ml-1" />
+                      </div>
                     </div>
                   </div>
                 </div>
