@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
-import { supabase } from '../utils/supabase';
+import { useMemo } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import { ChevronRight, PlayCircle, Book, CheckCircle, Clock, Star, Users, Award, Sparkles } from 'lucide-react';
 
 // Mock课程详细数据
@@ -285,69 +284,18 @@ const mockCoursesDetail: Record<string, any> = {
 
 const CourseDetail = () => {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
-  const [course, setCourse] = useState<any>(null);
-  const [modules, setModules] = useState<any[]>([]);
-  const [user, setUser] = useState<any>(null);
-  const [userProgress, setUserProgress] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const checkUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      setUser(user);
-    };
-
-    checkUser();
-
-    const fetchCourseDetail = async () => {
-      if (!id) return;
-
-      setLoading(true);
-      
-      // 尝试从数据库获取
-      const { data: courseData } = await supabase
-        .from('courses')
-        .select('*')
-        .eq('id', id)
-        .single();
-
-      // 如果数据库没有，从mock数据获取
-      const courseInfo = courseData || mockCoursesDetail[id];
-
-      if (courseInfo) {
-        setCourse(courseInfo);
-
-        // 获取课程模块（优先使用mock数据中的模块）
-        const modulesData = courseInfo.modules || [];
-        setModules(modulesData);
-
-        // 获取用户进度
-        if (user) {
-          const { data: progressData } = await supabase
-            .from('user_progress')
-            .select('*')
-            .eq('user_id', user.id)
-            .eq('course_id', id);
-
-          setUserProgress(progressData || []);
-        }
-      }
-
-      setLoading(false);
-    };
-
-    fetchCourseDetail();
-  }, [id, user]);
+  // 直接从mock数据获取，不等待网络请求
+  const course = useMemo(() => id ? mockCoursesDetail[id] : null, [id]);
+  const modules = course?.modules || [];
 
   const getModuleProgress = (moduleId: string) => {
-    const progress = userProgress.find((p: any) => p.module_id === moduleId);
-    return progress ? progress.progress_percentage : 0;
+    // 模拟进度（实际使用中应该从本地存储获取）
+    return 0;
   };
 
   const isModuleCompleted = (moduleId: string) => {
-    const progress = userProgress.find((p: any) => p.module_id === moduleId);
-    return progress ? progress.completed : false;
+    return false;
   };
 
   const getLevelColor = (level: string) => {
@@ -359,16 +307,7 @@ const CourseDetail = () => {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <p className="text-gray-300">加载中...</p>
-        </div>
-      </div>
-    );
-  }
+  // 不使用loading，直接显示内容
 
   if (!course) {
     return (

@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { supabase } from '../utils/supabase';
 import { ChevronRight, Filter, BookOpen, Clock, Video, FileText, Award } from 'lucide-react';
 
-// Mock课程数据
+// Mock课程数据（直接在组件加载，不需要等待）
 const mockCourses = [
   {
     id: '1',
@@ -152,50 +151,36 @@ const mockCourses = [
 ];
 
 const Courses = () => {
-  const [courses, setCourses] = useState<any[]>([]);
-  const [filteredCourses, setFilteredCourses] = useState<any[]>([]);
-  const [categories, setCategories] = useState<string[]>([]);
-  const [levels, setLevels] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedLevel, setSelectedLevel] = useState<string>('all');
 
-  useEffect(() => {
-    // 获取课程列表
-    const fetchCourses = async () => {
-      const { data } = await supabase
-        .from('courses')
-        .select('*');
-      
-      // 如果数据库没有数据，使用mock数据
-      const courseData = data && data.length > 0 ? data : mockCourses;
-      
-      setCourses(courseData);
-      setFilteredCourses(courseData);
-      
-      // 提取所有类别和难度
-      const uniqueCategories = [...new Set(courseData.map((course: any) => course.category))] as string[];
-      const uniqueLevels = [...new Set(courseData.map((course: any) => course.level))] as string[];
-      setCategories(uniqueCategories);
-      setLevels(uniqueLevels);
-    };
+  // 直接从课程（无等待）
+  const courses = mockCourses;
 
-    fetchCourses();
-  }, []);
+  // 提取类别和难度 计算，不需要请求网络
+  const categories = useMemo(() => 
+    ['全部类别', ...new Set(courses.map(course => course.category))],
+    [courses]
+  );
+  const levels = useMemo(() => 
+    ['全部', ...new Set(courses.map(course => course.level))],
+    [courses]
+  );
 
-  // 筛选课程
-  useEffect(() => {
+  // 筛选课程 - useMemo优化性能
+  const filteredCourses = useMemo(() => {
     let result = courses;
     
     if (selectedCategory !== 'all') {
-      result = result.filter((course) => course.category === selectedCategory);
+      result = result.filter(course => course.category === selectedCategory);
     }
     
     if (selectedLevel !== 'all') {
-      result = result.filter((course) => course.level === selectedLevel);
+      result = result.filter(course => course.level === selectedLevel);
     }
     
-    setFilteredCourses(result);
-  }, [selectedCategory, selectedLevel, courses]);
+    return result;
+  }, [selectedCategory, selectedLevel]);
 
   const getLevelColor = (level: string) => {
     switch(level) {
@@ -273,7 +258,6 @@ const Courses = () => {
                   onChange={(e) => setSelectedCategory(e.target.value)}
                   className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                  <option value="all">全部类别</option>
                   {categories.map((category) => (
                     <option key={category} value={category}>{category}</option>
                   ))}
@@ -288,7 +272,6 @@ const Courses = () => {
                   onChange={(e) => setSelectedLevel(e.target.value)}
                   className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                  <option value="all">全部难度</option>
                   {levels.map((level) => (
                     <option key={level} value={level}>{level}</option>
                   ))}
@@ -310,6 +293,7 @@ const Courses = () => {
                         src={course.cover_image_url} 
                         alt={course.title} 
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        loading="lazy"
                       />
                     ) : (
                       <div className="w-full h-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
